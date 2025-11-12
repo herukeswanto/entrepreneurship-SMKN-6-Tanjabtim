@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintChain - Jasa Kreatif SMK Terpercaya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    
+    <style>
+        /* ===== CSS LENGKAP ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --purple: #7C3AED;
+            --bg-primary: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --border: #E5E7EB;
+            --border-dark: #D1D5DB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --radius-s: 8px;
+            --radius-m: 12px;
+            --radius-l: 16px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 var(--space-m);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .menu-btn, .icon-btn {
+            background: none;
+            border: none;
+            padding: var(--space-s);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-s);
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .menu-btn:hover, .icon-btn:hover {
+            background: var(--bg-primary);
+        }
+
+        .menu-btn .iconify, .icon-btn .iconify {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            font-size: 24px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-s);
+        }
+
+        .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--error);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 5px;
+            border-radius: var(--radius-full);
+            min-width: 16px;
+            text-align: center;
+        }
+
+        /* Location Bar */
+        .location-bar {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-m) 0;
+        }
+
+        .location-bar .container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .location-bar .iconify {
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--space-l) 0;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-m);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-m);
+            padding: 12px var(--space-m);
+            margin-bottom: var(--space-l);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-bar .iconify {
+            font-size: 20px;
+            color: var(--text-light);
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            font-family: var(--font-body);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-light);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-m);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-m);
+        }
+
+        .link-text {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Category Cards */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-m);
+        }
+
+        .category-card {
+            aspect-ratio: 1.3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-m);
+            border-radius: var(--radius-l);
+            color: white;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s;
+        }
+
+        .category-card:active {
+            transform: scale(0.98);
+        }
+
+        .category-icon {
+            font-size: 48px;
+        }
+
+        .category-card h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .gradient-blue {
+            background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+        }
+
+        .gradient-green {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+        }
+
+        .gradient-orange {
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+        }
+
+        .gradient-purple {
+            background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+        }
+
+        /* Service Cards */
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-m);
+        }
+
+        .service-card {
+            display: flex;
+            gap: var(--space-m);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-m);
+            padding: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-image {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-s);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .service-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .service-info h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .star-icon {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .review-count {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .price {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Portfolio Scroll */
+        .portfolio-scroll {
+            display: flex;
+            gap: var(--space-s);
+            overflow-x: auto;
+            padding-bottom: var(--space-s);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .portfolio-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .portfolio-scroll::-webkit-scrollbar-track {
+            background: var(--border);
+            border-radius: var(--radius-full);
+        }
+
+        .portfolio-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: var(--radius-full);
+        }
+
+        .portfolio-item {
+            flex-shrink: 0;
+        }
+
+        .portfolio-image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-s);
+            border: 1px solid var(--border);
+        }
+
+        /* Info Card */
+        .info-card {
+            display: flex;
+            gap: var(--space-m);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-m);
+            padding: var(--space-m);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            background: #FFFBEB;
+            border-radius: var(--radius-s);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-icon .iconify {
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .info-content h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: var(--space-s);
+        }
+
+        .info-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--space-s) 0;
+            z-index: 100;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: var(--space-s);
+            text-decoration: none;
+            color: var(--text-light);
+            transition: color 0.2s;
+            min-width: 60px;
+        }
+
+        .nav-item .iconify {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .side-menu.active {
+            left: 0;
+        }
+
+        .side-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-l) var(--space-m);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .side-menu-header h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            padding: var(--space-s);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn .iconify {
+            font-size: 24px;
+        }
+
+        .side-menu-nav {
+            padding: var(--space-m) 0;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-m);
+            padding: var(--space-m);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .menu-link:hover {
+            background: var(--bg-primary);
+        }
+
+        .menu-link .iconify {
+            font-size: 20px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+            body {
+                padding-bottom: 0;
+            }
+            .bottom-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <button class="menu-btn" id="menuBtn">
+                    <span class="iconify" data-icon="heroicons:bars-3"></span>
+                </button>
+                <div class="logo">
+                    <span class="iconify logo-icon" data-icon="ph:link-bold"></span>
+                    <span class="logo-text">PRINTCHAIN UNIT PRODUKSI SMKN 6 TANJABTIM</span>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn">
+                        <span class="iconify" data-icon="heroicons:bell"></span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="icon-btn">
+                        <span class="iconify" data-icon="heroicons:user-circle"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Location Bar -->
+    <div class="location-bar">
+        <div class="container">
+            <span class="iconify" data-icon="heroicons:map-pin"></span>
+            <span>Tanjung Jabung Timur</span>
+            <span class="iconify" data-icon="heroicons:chevron-down"></span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <span class="iconify" data-icon="heroicons:magnifying-glass"></span>
+                <input type="text" placeholder="Cari layanan fotografi, percetakan, dll...">
+            </div>
+
+            <!-- Categories -->
+            <section class="section">
+                <h2 class="section-title">Kategori Layanan</h2>
+                <div class="category-grid">
+                    <a href="fotografi.html" class="category-card gradient-blue">
+                        <span class="iconify category-icon" data-icon="heroicons:camera"></span>
+                        <h3>FOTOGRAFI</h3>
+                    </a>
+                    <a href="percetakan.html" class="category-card gradient-green">
+                        <span class="iconify category-icon" data-icon="heroicons:printer"></span>
+                        <h3>PERCETAKAN</h3>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Popular Services -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🔥 Layanan Populer</h2>
+                    <a href="#" class="link-text">Lihat Semua →</a>
+                </div>
+                
+                <div class="service-list">
+                    <a href="fotografi.html" class="service-card">
+                        <div class="service-image">
+                            <div class="placeholder-image gradient-blue">
+                                <span class="iconify" data-icon="heroicons:camera" style="font-size: 32px;"></span>
+                            </div>
+                        </div>
+                        <div class="service-info">
+                            <h3>PAKET WISUDA</h3>
+                            <div class="rating">
+                                <span class="iconify star-icon" data-icon="heroicons:star-solid"></span>
+                                <span>4.9</span>
+                                <span class="review-count">(127 review)</span>
+                            </div>
+                            <p class="price">Mulai Rp 100.000</p>
+                        </div>
+                    </a>
+
+                    <a href="percetakan.html" class="service-card">
+                        <div class="service-image">
+                            <div class="placeholder-image gradient-green">
+                                <span class="iconify" data-icon="heroicons:document-text" style="font-size: 32px;"></span>
+                            </div>
+                        </div>
+                        <div class="service-info">
+                            <h3>UNDANGAN NIKAH</h3>
+                            <div class="rating">
+                                <span class="iconify star-icon" data-icon="heroicons:star-solid"></span>
+                                <span>4.8</span>
+                                <span class="review-count">(89 review)</span>
+                            </div>
+                            <p class="price">Mulai Rp 250.000</p>
+                        </div>
+                    </a>
+
+                    <a href="percetakan.html" class="service-card">
+                        <div class="service-image">
+                            <div class="placeholder-image gradient-orange">
+                                <span class="iconify" data-icon="heroicons:identification" style="font-size: 32px;"></span>
+                            </div>
+                        </div>
+                        <div class="service-info">
+                            <h3>BANNER & SPANDUK</h3>
+                            <div class="rating">
+                                <span class="iconify star-icon" data-icon="heroicons:star-solid"></span>
+                                <span>4.7</span>
+                                <span class="review-count">(45 review)</span>
+                            </div>
+                            <p class="price">Mulai Rp 50.000/m²</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Portfolio Preview -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">⭐ Portfolio Terbaru</h2>
+                    <a href="portfolio.html" class="link-text">Lihat Semua →</a>
+                </div>
+                
+                <div class="portfolio-scroll">
+                    <div class="portfolio-item">
+                        <div class="portfolio-image gradient-blue"></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image gradient-green"></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image gradient-orange"></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image gradient-purple"></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image gradient-blue"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="section">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <span class="iconify" data-icon="heroicons:light-bulb"></span>
+                    </div>
+                    <div class="info-content">
+                        <h3>💡 Tentang PrintChain</h3>
+                        <p>Platform jasa kreatif dengan blockchain certificate untuk menjamin keaslian setiap karya dari siswa SMKN 6 Tanjung Jabung Timur.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="iconify" data-icon="heroicons:home-solid"></span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="tracking.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:clipboard-document-list"></span>
+            <span class="nav-label">Orders</span>
+        </a>
+        <a href="certificate.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:qr-code"></span>
+            <span class="nav-label">Scan</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="iconify" data-icon="heroicons:chat-bubble-left-right"></span>
+            <span class="nav-label">Chat</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:user"></span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>Menu</h2>
+            <button class="close-btn" id="closeMenu">
+                <span class="iconify" data-icon="heroicons:x-mark"></span>
+            </button>
+        </div>
+        <nav class="side-menu-nav">
+            <a href="index.html" class="menu-link">
+                <span class="iconify" data-icon="heroicons:home"></span>
+                <span>Home</span>
+            </a>
+            <a href="fotografi.html" class="menu-link">
+                <span class="iconify" data-icon="heroicons:camera"></span>
+                <span>Fotografi</span>
+            </a>
+            <a href="percetakan.html" class="menu-link">
+                <span class="iconify" data-icon="heroicons:printer"></span>
+                <span>Percetakan</span>
+            </a>
+            <a href="portfolio.html" class="menu-link">
+                <span class="iconify" data-icon="heroicons:photo"></span>
+                <span>Portfolio</span>
+            </a>
+            <a href="tracking.html" class="menu-link">
+                <span class="iconify" data-icon="heroicons:truck"></span>
+                <span>Track Order</span>
+            </a>
+            <a href="profile.html" class="menu-link">
+                <span class="iconify" data-icon="heroicons:user"></span>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // ===== JAVASCRIPT LENGKAP =====
+        
+        // Mobile Menu
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('overlay');
+
+        function openMenu() {
+            sideMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            sideMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Toast Notification Function
+        function showToast(message, type = 'info') {
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#2563EB'
+            };
+            
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 9999;
+                font-size: 14px;
+                font-weight: 500;
+            `;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Notification Badge Animation
+        const notifBadge = document.querySelector('.badge');
+        if (notifBadge) {
+            setInterval(() => {
+                notifBadge.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    notifBadge.style.transform = 'scale(1)';
+                }, 200);
+            }, 5000);
+        }
+
+        console.log('✅ PrintChain loaded successfully!');
+    </script>
+</body>
+</html>

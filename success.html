@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Berhasil - PrintChain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    
+    <style>
+        /* ===== CSS LENGKAP ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --purple: #7C3AED;
+            --bg-primary: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --border: #E5E7EB;
+            --border-dark: #D1D5DB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --radius-s: 8px;
+            --radius-m: 12px;
+            --radius-l: 16px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #ECFDF5 0%, #EFF6FF 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: var(--space-l);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Success Animation */
+        .success-container {
+            text-align: center;
+            padding: var(--space-xl) 0;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            position: relative;
+            display: inline-block;
+            margin-bottom: var(--space-l);
+        }
+
+        .success-icon .iconify {
+            font-size: 120px;
+            color: var(--success);
+            animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 8px 16px rgba(16, 185, 129, 0.3));
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .success-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: ripple 2s infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            margin-bottom: var(--space-m);
+            color: var(--text-primary);
+            animation: fadeIn 0.8s ease 0.2s backwards;
+        }
+
+        .success-message {
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 320px;
+            margin: 0 auto var(--space-xl);
+            font-size: 15px;
+            animation: fadeIn 0.8s ease 0.4s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Detail Section */
+        .detail-section {
+            background: white;
+            border-radius: var(--radius-l);
+            padding: var(--space-l);
+            margin-bottom: var(--space-m);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            animation: slideUp 0.6s ease 0.3s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-section h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: var(--space-m);
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            color: var(--text-primary);
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-m);
+            padding-bottom: var(--space-m);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .detail-value.success {
+            color: var(--success);
+        }
+
+        .detail-value.large {
+            font-size: 18px;
+            font-family: var(--font-heading);
+        }
+
+        /* Info Card */
+        .info-card {
+            background: #ECFDF5;
+            border: 1px solid var(--success);
+            border-radius: var(--radius-m);
+            padding: var(--space-m);
+            display: flex;
+            gap: var(--space-m);
+            animation: slideUp 0.6s ease 0.5s backwards;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+        }
+
+        .info-icon .iconify {
+            font-size: 24px;
+            color: var(--success);
+        }
+
+        .info-content h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--success);
+        }
+
+        .info-content p {
+            font-size: 13px;
+            color: #065F46;
+            line-height: 1.5;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s);
+            margin-top: var(--space-l);
+            animation: slideUp 0.6s ease 0.6s backwards;
+        }
+
+        .btn {
+            padding: 14px var(--space-l);
+            border-radius: var(--radius-m);
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-s);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-primary);
+        }
+
+        .btn-secondary:active {
+            background: #E0E7FF;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Share Section */
+        .share-section {
+            text-align: center;
+            margin-top: var(--space-xl);
+            animation: fadeIn 1s ease 0.8s backwards;
+        }
+
+        .share-section p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-m);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: var(--space-m);
+            justify-content: center;
+        }
+
+        .share-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .share-btn:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .share-btn .iconify {
+            font-size: 24px;
+        }
+
+        .share-btn.whatsapp .iconify {
+            color: #25D366;
+        }
+
+        .share-btn.instagram .iconify {
+            color: #E4405F;
+        }
+
+        .share-btn.twitter .iconify {
+            color: #1DA1F2;
+        }
+
+        .share-btn.facebook .iconify {
+            color: #1877F2;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f0f0;
+            position: absolute;
+            animation: confetti-fall linear forwards;
+            z-index: 9999;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-l);
+            border-top: 1px solid var(--border);
+            animation: fadeIn 1s ease 1s backwards;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            body {
+                padding: var(--space-xl);
+            }
+            
+            .success-icon .iconify {
+                font-size: 140px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Success Container -->
+        <div class="success-container">
+            <div class="success-icon">
+                <span class="iconify" data-icon="heroicons:check-circle-solid"></span>
+            </div>
+            <h1>Pembayaran Berhasil!</h1>
+            <p class="success-message">
+                Order Anda telah dikonfirmasi dan akan segera diproses oleh tim kami
+            </p>
+        </div>
+
+        <!-- Order Info -->
+        <div class="detail-section">
+            <h3>
+                <span class="iconify" data-icon="heroicons:document-check"></span>
+                Informasi Order
+            </h3>
+            <div class="detail-item">
+                <span class="detail-label">Order ID</span>
+                <span class="detail-value" id="orderId">#INV-2024-00128</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Tanggal Order</span>
+                <span class="detail-value" id="orderDate">16 Januari 2024, 15:30</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Total Pembayaran</span>
+                <span class="detail-value success large" id="totalAmount">Rp 1.510.000</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Metode Pembayaran</span>
+                <span class="detail-value" id="paymentMethod">QRIS</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Estimasi Selesai</span>
+                <span class="detail-value" id="estimatedDate">19 Januari 2024</span>
+            </div>
+        </div>
+
+        <!-- Blockchain Info -->
+        <div class="info-card">
+            <div class="info-icon">
+                <span class="iconify" data-icon="heroicons:shield-check"></span>
+            </div>
+            <div class="info-content">
+                <h3>🔐 Blockchain Certificate</h3>
+                <p>Certificate sedang di-generate. Anda akan menerima notifikasi saat sudah siap dan dapat diakses di menu Certificate.</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-buttons">
+            <a href="tracking.html" class="btn btn-primary btn-block">
+                <span class="iconify" data-icon="heroicons:eye"></span>
+                LIHAT STATUS ORDER
+            </a>
+            <a href="index.html" class="btn btn-secondary btn-block">
+                <span class="iconify" data-icon="heroicons:home"></span>
+                KEMBALI KE HOME
+            </a>
+            <button class="btn btn-secondary btn-block" onclick="downloadInvoice()">
+                <span class="iconify" data-icon="heroicons:arrow-down-tray"></span>
+                DOWNLOAD INVOICE
+            </button>
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section">
+            <p>Bagikan pengalaman Anda dengan PrintChain</p>
+            <div class="share-buttons">
+                <button class="share-btn whatsapp" onclick="shareToSocial('whatsapp')" title="Share to WhatsApp">
+                    <span class="iconify" data-icon="simple-icons:whatsapp"></span>
+                </button>
+                <button class="share-btn instagram" onclick="shareToSocial('instagram')" title="Share to Instagram">
+                    <span class="iconify" data-icon="simple-icons:instagram"></span>
+                </button>
+                <button class="share-btn twitter" onclick="shareToSocial('twitter')" title="Share to Twitter">
+                    <span class="iconify" data-icon="simple-icons:twitter"></span>
+                </button>
+                <button class="share-btn facebook" onclick="shareToSocial('facebook')" title="Share to Facebook">
+                    <span class="iconify" data-icon="simple-icons:facebook"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Terima kasih telah menggunakan <strong>PrintChain</strong> 🙏</p>
+            <p style="margin-top: 8px;">
+                Butuh bantuan? <a href="#" onclick="contactSupport(); return false;">Hubungi Support</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== JAVASCRIPT LENGKAP =====
+        
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentMethod = urlParams.get('method') || 'QRIS';
+        const amount = urlParams.get('amount') || '1510000';
+
+        // Update page content
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set payment method
+            document.getElementById('paymentMethod').textContent = paymentMethod.toUpperCase();
+            
+            // Set amount
+            document.getElementById('totalAmount').textContent = formatRupiah(amount);
+            
+            // Set order date
+            const now = new Date();
+            document.getElementById('orderDate').textContent = formatDateTime(now);
+            
+            // Set estimated date (3 days from now)
+            const estimatedDate = new Date(now);
+            estimatedDate.setDate(estimatedDate.getDate() + 3);
+            document.getElementById('estimatedDate').textContent = formatDate(estimatedDate);
+            
+            // Generate order ID
+            const orderId = generateOrderId();
+            document.getElementById('orderId').textContent = orderId;
+            
+            // Save to localStorage
+            saveOrder({
+                orderId: orderId,
+                date: now.toISOString(),
+                amount: amount,
+                method: paymentMethod,
+                status: 'processing'
+            });
+            
+            // Show celebration
+            setTimeout(() => {
+                createConfetti();
+                playSuccessSound();
+            }, 500);
+            
+            // Show welcome toast
+            setTimeout(() => {
+                showToast('Order berhasil dibuat! 🎉', 'success');
+            }, 1500);
+        });
+
+        // Format Rupiah
+        function formatRupiah(amount) {
+            return 'Rp ' + parseInt(amount).toLocaleString('id-ID');
+        }
+
+        // Format Date
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }).format(date);
+        }
+
+        // Format DateTime
+        function formatDateTime(date) {
+            return new Intl.DateTimeFormat('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+
+        // Generate Order ID
+        function generateOrderId() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(Math.random() * 100000).toString().padStart(5, '0');
+            return `#INV-${year}-${random}`;
+        }
+
+        // Save Order to LocalStorage
+        function saveOrder(order) {
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        // Create Confetti
+        function createConfetti() {
+            const colors = ['#2563EB', '#10B981', '#F59E0B', '#7C3AED', '#EF4444', '#EC4899'];
+            const emojis = ['🎉', '✨', '⭐', '💫', '🌟', '💝', '🎊', '🎈'];
+            const count = 80;
+
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    
+                    // Random emoji or colored square
+                    const useEmoji = Math.random() > 0.5;
+                    
+                    if (useEmoji) {
+                        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                        confetti.style.fontSize = '24px';
+                    } else {
+                        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.width = '10px';
+                        confetti.style.height = '10px';
+                    }
+                    
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-20px';
+                    confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 30);
+            }
+        }
+
+        // Play Success Sound (silent if not supported)
+        function playSuccessSound() {
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZQQ4PVqzn77FfGwU+ltzyy3k');
+                audio.volume = 0.3;
+                audio.play().catch(() => {});
+            } catch (e) {
+                // Silent fail
+            }
+        }
+
+        // Download Invoice
+        function downloadInvoice() {
+            showToast('Invoice sedang didownload...', 'info');
+            
+            // Simulate download
+            setTimeout(() => {
+                showToast('Invoice berhasil didownload! 📄', 'success');
+                
+                // In real app, trigger actual download
+                // const link = document.createElement('a');
+                // link.href = '/api/invoice/' + orderId;
+                // link.download = 'invoice.pdf';
+                // link.click();
+            }, 1500);
+        }
+
+        // Share to Social Media
+        function shareToSocial(platform) {
+            const orderId = document.getElementById('orderId').textContent;
+            const message = `Saya baru saja order di PrintChain! Order ${orderId} sedang diproses. Platform jasa kreatif SMK terpercaya dengan Blockchain Certificate! 🎉`;
+            const url = window.location.origin;
+            
+            const shareUrls = {
+                whatsapp: `https://wa.me/?text=${encodeURIComponent(message + ' ' + url)}`,
+                twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${encodeURIComponent(url)}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(message)}`,
+                instagram: url // Instagram doesn't support direct sharing
+            };
+            
+            if (platform === 'instagram') {
+                showToast('Salin link dan bagikan di Instagram Story! 📸', 'info');
+                copyToClipboard(url);
+            } else if (shareUrls[platform]) {
+                // window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+                showToast(`Berbagi ke ${platform}!`, 'success');
+            }
+            
+            // Add animation
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Link disalin ke clipboard!', 'success');
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link disalin ke clipboard!', 'success');
+                } catch (err) {
+                    showToast('Gagal menyalin link', 'error');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Contact Support
+        function contactSupport() {
+            const orderId = document.getElementById('orderId').textContent;
+            const message = `Halo, saya butuh bantuan untuk order ${orderId}`;
+            
+            if (confirm('Hubungi support via WhatsApp?')) {
+                showToast('Menghubungkan ke WhatsApp...', 'info');
+                // window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#2563EB'
+            };
+            
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+            
+            toast.innerHTML = `
+                <span style="font-weight: bold; margin-right: 8px;">${icons[type]}</span>
+                <span>${message}</span>
+            `;
+            
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                font-size: 14px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                animation: toastSlideUp 0.3s ease;
+                max-width: 90%;
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'toastSlideDown 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add toast animations
+        const toastStyles = document.createElement('style');
+        toastStyles.textContent = `
+            @keyframes toastSlideUp {
+                from {
+                    transform: translateX(-50%) translateY(20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes toastSlideDown {
+                from {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(-50%) translateY(20px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(toastStyles);
+
+        // Prevent back button
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function () {
+            window.history.pushState(null, null, window.location.href);
+            if (confirm('Yakin ingin meninggalkan halaman ini?')) {
+                window.location.href = 'index.html';
+            }
+        };
+
+        // Auto-redirect after 30 seconds (optional)
+        let autoRedirectTimer = setTimeout(() => {
+            if (confirm('Redirect ke halaman tracking?')) {
+                window.location.href = 'tracking.html';
+            }
+        }, 30000);
+
+        // Clear timer if user interacts
+        document.addEventListener('click', () => {
+            clearTimeout(autoRedirectTimer);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'T' to go to tracking
+            if (e.key === 't' || e.key === 'T') {
+                window.location.href = 'tracking.html';
+            }
+            // Press 'H' to go to home
+            if (e.key === 'h' || e.key === 'H') {
+                window.location.href = 'index.html';
+            }
+            // Press 'D' to download invoice
+            if (e.key === 'd' || e.key === 'D') {
+                downloadInvoice();
+            }
+        });
+
+        console.log('✅ Success page loaded!');
+        console.log('🎉 Order berhasil dibuat!');
+        console.log('💡 Shortcuts:');
+        console.log('- Press T to view tracking');
+        console.log('- Press H to go home');
+        console.log('- Press D to download invoice');
+    </script>
+</body>
+</html>

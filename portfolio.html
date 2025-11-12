@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - PrintChain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    
+    <style>
+        /* ===== CSS LENGKAP ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --purple: #7C3AED;
+            --bg-primary: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --border: #E5E7EB;
+            --border-dark: #D1D5DB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --radius-s: 8px;
+            --radius-m: 12px;
+            --radius-l: 16px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 var(--space-m);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .menu-btn, .icon-btn {
+            background: none;
+            border: none;
+            padding: var(--space-s);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-s);
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover, .icon-btn:hover {
+            background: var(--bg-primary);
+        }
+
+        .menu-btn .iconify, .icon-btn .iconify {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--space-l) 0;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: var(--space-s);
+            margin-bottom: var(--space-l);
+            overflow-x: auto;
+            padding-bottom: var(--space-s);
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: none;
+            border-radius: 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: var(--border);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: var(--space-l);
+        }
+
+        .portfolio-card {
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: var(--radius-s);
+            animation: fadeIn 0.5s ease backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .portfolio-card:nth-child(1) { animation-delay: 0.05s; }
+        .portfolio-card:nth-child(2) { animation-delay: 0.1s; }
+        .portfolio-card:nth-child(3) { animation-delay: 0.15s; }
+        .portfolio-card:nth-child(4) { animation-delay: 0.2s; }
+        .portfolio-card:nth-child(5) { animation-delay: 0.25s; }
+        .portfolio-card:nth-child(6) { animation-delay: 0.3s; }
+        .portfolio-card:nth-child(7) { animation-delay: 0.35s; }
+        .portfolio-card:nth-child(8) { animation-delay: 0.4s; }
+        .portfolio-card:nth-child(9) { animation-delay: 0.45s; }
+
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-card:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+        }
+
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-likes {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .portfolio-caption {
+            display: none; /* Hide caption below card for a cleaner look */
+        }
+
+        /* Load More Button */
+        .btn {
+            padding: 14px var(--space-l);
+            border-radius: var(--radius-m);
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-s);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-primary);
+        }
+
+        .btn-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-m);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-l);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideUp 0.3s ease;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            border-radius: var(--radius-l) var(--radius-l) 0 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: var(--space-m);
+            position: relative;
+            background-color: var(--border); /* Fallback color */
+        }
+        
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-l) var(--radius-l) 0 0;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 16px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .modal-info {
+            padding: var(--space-l);
+        }
+
+        .modal-info h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            margin-bottom: var(--space-m);
+        }
+
+        .modal-author {
+            display: flex;
+            align-items: center;
+            gap: var(--space-m);
+            margin-bottom: var(--space-m);
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .gradient-blue { background: #3B82F6; }
+        .gradient-green { background: #10B981; }
+        .gradient-orange { background: #F59E0B; }
+        .gradient-purple { background: #7C3AED; }
+
+        .modal-author h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .modal-author p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .modal-stats {
+            display: flex;
+            gap: var(--space-l);
+            margin-bottom: var(--space-l);
+            padding-bottom: var(--space-l);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .modal-details h3 {
+            font-size: 14px;
+            margin-bottom: var(--space-s);
+        }
+
+        .modal-details ul {
+            list-style: none;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-l);
+        }
+
+        .modal-details li {
+            margin-bottom: 4px;
+        }
+
+        .blockchain-badge {
+            background: #ECFDF5;
+            border: 1px solid var(--success);
+            border-radius: var(--radius-s);
+            padding: var(--space-m);
+            margin-bottom: var(--space-l);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .blockchain-badge small {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-s);
+        }
+
+        .btn-modal-action {
+            padding: 12px;
+            background: var(--bg-primary);
+            border: none;
+            border-radius: var(--radius-s);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-modal-action:hover {
+            background: var(--border);
+        }
+
+        .btn-modal-action.btn-primary {
+            grid-column: span 3;
+            background: var(--primary);
+            color: white;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .btn-modal-action.btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-modal-action.liked {
+            color: var(--error);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--space-s) 0;
+            z-index: 100;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: var(--space-s);
+            text-decoration: none;
+            color: var(--text-light);
+            transition: color 0.2s;
+            min-width: 60px;
+        }
+
+        .nav-item .iconify {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <button class="menu-btn" onclick="history.back()">
+                    <span class="iconify" data-icon="heroicons:arrow-left"></span>
+                </button>
+                <div class="logo">
+                    <span class="logo-text">Portfolio</span>
+                </div>
+                <button class="icon-btn" id="searchBtn">
+                    <span class="iconify" data-icon="heroicons:magnifying-glass"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="fotografi">Fotografi</button>
+                <button class="filter-btn" data-filter="percetakan">Percetakan</button>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Items will be generated by JavaScript -->
+            </div>
+
+            <!-- Load More Button -->
+            <button class="btn btn-secondary btn-block" onclick="loadMore()">
+                <span class="iconify" data-icon="heroicons:arrow-down-circle"></span>
+                Load More
+            </button>
+
+        </div>
+    </main>
+
+    <!-- Portfolio Modal -->
+    <div class="modal" id="portfolioModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <span class="iconify" data-icon="heroicons:x-mark"></span>
+            </button>
+            
+            <div class="modal-image">
+                <img id="modalImage" src="" alt="Portfolio Image">
+                <div class="carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <h2 id="modalTitle">Undangan Pernikahan Elegant</h2>
+                
+                <div class="modal-author">
+                    <div class="author-avatar gradient-blue" id="modalAvatar">AR</div>
+                    <div>
+                        <h4 id="modalAuthor">Ahmad Riski</h4>
+                        <p id="modalRole">Kelas XII Multimedia</p>
+                    </div>
+                </div>
+
+                <div class="modal-stats">
+                    <div class="stat-item">
+                        <span class="iconify" data-icon="heroicons:heart"></span>
+                        <span id="modalLikes">45 likes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="iconify" data-icon="heroicons:chat-bubble-left"></span>
+                        <span>12 comments</span>
+                    </div>
+                </div>
+
+                <div class="modal-details">
+                    <h3>📋 Details:</h3>
+                    <ul id="modalDetailsList">
+                        <!-- Details will be generated by JavaScript -->
+                    </ul>
+                </div>
+
+                <div class="blockchain-badge">
+                    <span class="iconify" data-icon="heroicons:shield-check"></span>
+                    <span>Blockchain Verified ✓</span>
+                    <small>TX: 0x7a8b9c...</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-modal-action" id="likeBtn" onclick="toggleLike()">
+                        <span class="iconify" data-icon="heroicons:heart"></span>
+                        <span>Like</span>
+                    </button>
+                    <button class="btn-modal-action" onclick="showToast('Comment feature coming soon!', 'info')">
+                        <span class="iconify" data-icon="heroicons:chat-bubble-left"></span>
+                        <span>Comment</span>
+                    </button>
+                    <button class="btn-modal-action" onclick="sharePortfolio()">
+                        <span class="iconify" data-icon="heroicons:share"></span>
+                        <span>Share</span>
+                    </button>
+                    <button class="btn-modal-action btn-primary" onclick="orderSimilar()">
+                        <span class="iconify" data-icon="heroicons:shopping-cart"></span>
+                        <span>Order Similar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:home"></span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="tracking.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:clipboard-document-list"></span>
+            <span class="nav-label">Orders</span>
+        </a>
+        <a href="certificate.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:qr-code"></span>
+            <span class="nav-label">Scan</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="iconify" data-icon="heroicons:chat-bubble-left-right"></span>
+            <span class="nav-label">Chat</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="iconify" data-icon="heroicons:user"></span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        // ===== JAVASCRIPT LENGKAP =====
+        
+        // Portfolio Data with Images
+        const portfolioData = [
+             { id: 1, category: 'percetakan', image: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=400&q=80' },
+            { id: 2, category: 'fotografi', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=80' },
+            { id: 3, category: 'percetakan', image: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=400&q=80' },
+            { id: 4, category: 'fotografi', image: 'https://images.unsplash.com/photo-1505238680356-667803448bb6?w=400&q=80' },
+            { id: 5, category: 'percetakan', image: 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=400&q=80' },
+            { id: 6, category: 'fotografi', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80' },
+            { id: 7, category: 'percetakan', image: 'https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?w=400&q=80' },
+            { id: 8, category: 'fotografi', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80' },
+            { id: 9, category: 'percetakan', image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&q=80' },
+        ];
+
+        let currentFilter = 'all';
+        let likedItems = new Set();
+        let currentModalItem = null;
+
+        // Initialize Portfolio Grid
+        function initPortfolio() {
+            renderPortfolio(portfolioData);
+        }
+
+        // Render Portfolio Items
+        function renderPortfolio(items) {
+            const grid = document.getElementById('portfolioGrid');
+            grid.innerHTML = '';
+            
+            const filteredItems = currentFilter === 'all' 
+                ? items 
+                : items.filter(item => item.category === currentFilter);
+            
+            filteredItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'portfolio-card';
+                card.dataset.category = item.category;
+                card.style.animationDelay = `${index * 0.05}s`;
+                card.onclick = () => openModal(item);
+                
+                card.innerHTML = `
+                    <div class="portfolio-img">
+                        <img src="${item.image}&sig=${item.id}" alt="${item.title}">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-likes">
+                                <span class="iconify" data-icon="heroicons:heart-solid"></span>
+                                <span>${item.likes}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentFilter = this.dataset.filter;
+                renderPortfolio(portfolioData);
+                
+                showToast(`Filter: ${this.textContent}`, 'info');
+            });
+        });
+
+        // Open Modal
+        function openModal(item) {
+            currentModalItem = item;
+            const modal = document.getElementById('portfolioModal');
+            
+            document.getElementById('modalImage').src = `${item.image}&sig=${item.id}`;
+            document.getElementById('modalTitle').textContent = item.title;
+            document.getElementById('modalAuthor').textContent = item.author;
+            document.getElementById('modalRole').textContent = item.role;
+            document.getElementById('modalLikes').textContent = `${item.likes} likes`;
+            document.getElementById('modalAvatar').textContent = item.avatar;
+            document.getElementById('modalAvatar').className = `author-avatar ${item.avatarGradient}`;
+            
+            const detailsList = document.getElementById('modalDetailsList');
+            detailsList.innerHTML = `
+                <li>Kategori: ${item.category === 'fotografi' ? 'Fotografi' : 'Percetakan'}</li>
+                <li>Tanggal: ${new Date().toLocaleDateString('id-ID')}</li>
+                <li>Ukuran: 10×15 cm</li>
+                <li>Bahan: Art Paper 260gsm</li>
+            `;
+            
+            const likeBtn = document.getElementById('likeBtn');
+            if (likedItems.has(item.id)) {
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('.iconify').setAttribute('data-icon', 'heroicons:heart-solid');
+            } else {
+                likeBtn.classList.remove('liked');
+                likeBtn.querySelector('.iconify').setAttribute('data-icon', 'heroicons:heart');
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('portfolioModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('portfolioModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Toggle Like
+        function toggleLike() {
+            if (!currentModalItem) return;
+            
+            const likeBtn = document.getElementById('likeBtn');
+            const likesText = document.getElementById('modalLikes');
+            
+            if (likedItems.has(currentModalItem.id)) {
+                likedItems.delete(currentModalItem.id);
+                currentModalItem.likes--;
+                likeBtn.classList.remove('liked');
+                likeBtn.querySelector('.iconify').setAttribute('data-icon', 'heroicons:heart');
+                showToast('Unlike!', 'info');
+            } else {
+                likedItems.add(currentModalItem.id);
+                currentModalItem.likes++;
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('.iconify').setAttribute('data-icon', 'heroicons:heart-solid');
+                showToast('Liked! ❤️', 'success');
+                
+                likeBtn.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    likeBtn.style.transform = 'scale(1)';
+                }, 200);
+            }
+            
+            likesText.textContent = `${currentModalItem.likes} likes`;
+            renderPortfolio(portfolioData);
+        }
+
+        // Share Portfolio
+        function sharePortfolio() {
+            const shareData = {
+                title: 'PrintChain Portfolio',
+                text: `Check out this amazing work: ${currentModalItem.title} by ${currentModalItem.author}`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link disalin ke clipboard!', 'success');
+            }
+        }
+
+        // Order Similar
+        function orderSimilar() {
+            showToast('Mengarahkan ke halaman order...', 'info');
+            setTimeout(() => {
+                if (currentModalItem.category === 'fotografi') {
+                    window.location.href = 'fotografi.html';
+                } else {
+                    window.location.href = 'percetakan.html';
+                }
+            }, 1000);
+        }
+
+        // Load More
+        let loadedCount = 1;
+        function loadMore() {
+            showToast('Loading more items...', 'info');
+            
+            setTimeout(() => {
+                const moreItems = portfolioData.slice(0, 9).map((item, index) => ({
+                    ...item,
+                    id: portfolioData.length + index + 1,
+                    image: `${item.image.split('&sig=')[0]}&sig=${portfolioData.length + index + 1}`,
+                    likes: Math.floor(Math.random() * 100)
+                }));
+                
+                portfolioData.push(...moreItems);
+                renderPortfolio(portfolioData);
+                loadedCount++;
+                
+                showToast(`${moreItems.length} items loaded!`, 'success');
+            }, 500);
+        }
+
+        // Search Button
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const query = prompt('Cari portfolio:');
+            if (query) {
+                const results = portfolioData.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase()) ||
+                    item.author.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                if (results.length > 0) {
+                    renderPortfolio(results);
+                    showToast(`${results.length} hasil ditemukan`, 'success');
+                } else {
+                    showToast('Tidak ada hasil', 'warning');
+                    renderPortfolio(portfolioData);
+                }
+            }
+        });
+
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#2563EB'
+            };
+            
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+            
+            toast.innerHTML = `
+                <span style="font-weight: bold; margin-right: 8px;">${icons[type]}</span>
+                <span>${message}</span>
+            `;
+            
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                font-size: 14px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                animation: toastSlideUp 0.3s ease;
+                max-width: 90%;
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'toastSlideDown 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add toast animations
+        const toastStyles = document.createElement('style');
+        toastStyles.textContent = `
+            @keyframes toastSlideUp {
+                from {
+                    transform: translateX(-50%) translateY(20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes toastSlideDown {
+                from {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(-50%) translateY(20px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(toastStyles);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initPortfolio();
+            console.log('✅ Portfolio page loaded successfully!');
+        });
+    </script>
+</body>
+</html>

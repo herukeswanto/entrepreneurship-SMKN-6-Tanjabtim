@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Fotografi - PrintChain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    
+    <style>
+        /* ===== CSS LENGKAP ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --purple: #7C3AED;
+            --bg-primary: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --border: #E5E7EB;
+            --border-dark: #D1D5DB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --radius-s: 8px;
+            --radius-m: 12px;
+            --radius-l: 16px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 var(--space-m);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .menu-btn, .icon-btn {
+            background: none;
+            border: none;
+            padding: var(--space-s);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-s);
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover, .icon-btn:hover {
+            background: var(--bg-primary);
+        }
+
+        .menu-btn .iconify, .icon-btn .iconify {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--space-l) 0;
+        }
+
+        /* Hero Image */
+        .hero-image {
+            width: 100%;
+            height: 200px;
+            border-radius: var(--radius-l);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-l);
+            box-shadow: var(--shadow-md);
+        }
+
+        .gradient-blue {
+            background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+        }
+
+        .gradient-green {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+        }
+
+        .gradient-orange {
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+        }
+
+        .gradient-purple {
+            background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-m);
+        }
+
+        /* Package Cards */
+        .package-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-m);
+        }
+
+        .package-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .package-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .package-content {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-m);
+            padding: var(--space-m);
+            transition: all 0.2s;
+        }
+
+        .package-card input[type="radio"]:checked + .package-content {
+            border-color: var(--primary);
+            background: #EFF6FF;
+        }
+
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-m);
+        }
+
+        .package-header h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -8px;
+            right: 12px;
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: var(--radius-s);
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-dark);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .package-card input[type="radio"]:checked + .package-content .radio-custom {
+            border-color: var(--primary);
+        }
+
+        .package-card input[type="radio"]:checked + .package-content .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: var(--space-m);
+        }
+
+        .package-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-s);
+        }
+
+        .package-features li .iconify {
+            font-size: 16px;
+            color: var(--text-light);
+        }
+
+        .package-price {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Photographer Cards */
+        .photographer-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-m);
+        }
+
+        .photographer-card {
+            cursor: pointer;
+        }
+
+        .photographer-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .photographer-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-m);
+            background: var(--bg-primary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-m);
+            padding: var(--space-m);
+            transition: all 0.2s;
+        }
+
+        .photographer-card input[type="radio"]:checked + .photographer-content {
+            background: #EFF6FF;
+            border-color: var(--primary);
+        }
+
+        .photographer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .photographer-info {
+            flex: 1;
+        }
+
+        .photographer-info h4 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .photographer-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .star-icon {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .link-portfolio {
+            font-size: 13px;
+            color: var(--primary);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        /* Date Selection */
+        .date-scroll {
+            display: flex;
+            gap: var(--space-s);
+            overflow-x: auto;
+            padding-bottom: var(--space-s);
+            margin-bottom: var(--space-m);
+        }
+
+        .date-card {
+            cursor: pointer;
+        }
+
+        .date-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .date-content {
+            width: 100px;
+            height: 72px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-m);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .date-card input[type="radio"]:checked + .date-content {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .date-number {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .date-day {
+            font-size: 12px;
+        }
+
+        /* Time Selection */
+        .time-selection {
+            margin-top: var(--space-m);
+        }
+
+        .time-grid {
+            display: flex;
+            gap: var(--space-s);
+            flex-wrap: wrap;
+        }
+
+        .time-slot {
+            cursor: pointer;
+        }
+
+        .time-slot input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .time-slot span {
+            display: block;
+            padding: 12px 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-s);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .time-slot input[type="radio"]:checked + span {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Input Notes */
+        .input-notes {
+            width: 100%;
+            height: 80px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-s);
+            font-family: var(--font-body);
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .input-notes:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Sticky Bottom */
+        .sticky-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            padding: var(--space-m);
+            z-index: 99;
+        }
+
+        .price-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-m);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .total-price {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Button */
+        .btn {
+            padding: 14px var(--space-l);
+            border-radius: var(--radius-m);
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-s);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+            .sticky-bottom {
+                max-width: 480px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <button class="menu-btn" onclick="history.back()">
+                    <span class="iconify" data-icon="heroicons:arrow-left"></span>
+                </button>
+                <div class="logo">
+                    <span class="logo-text">Booking Fotografi</span>
+                </div>
+                <button class="icon-btn">
+                    <span class="iconify" data-icon="heroicons:ellipsis-vertical"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Hero Image -->
+            <div class="hero-image gradient-blue">
+                <span class="iconify" data-icon="heroicons:camera" style="font-size: 64px; color: white;"></span>
+            </div>
+
+            <!-- Package Selection -->
+            <section class="section">
+                <h2 class="section-title">Pilih Paket Fotografi</h2>
+                
+                <div class="package-list">
+                    <!-- Package 1 -->
+                    <label class="package-card">
+                        <input type="radio" name="package" value="basic" data-price="100000" checked>
+                        <div class="package-content">
+                            <div class="package-header">
+                                <h3>PAKET WISUDA BASIC</h3>
+                                <div class="radio-custom"></div>
+                            </div>
+                            <ul class="package-features">
+                                <li><span class="iconify" data-icon="heroicons:camera"></span> 10 foto edited</li>
+                                <li><span class="iconify" data-icon="heroicons:clock"></span> 1 jam sesi</li>
+                                <li><span class="iconify" data-icon="heroicons:photo"></span> File digital HD</li>
+                            </ul>
+                            <div class="package-price">Rp 100.000</div>
+                        </div>
+                    </label>
+
+                    <!-- Package 2 -->
+                    <label class="package-card popular">
+                        <input type="radio" name="package" value="premium" data-price="200000">
+                        <div class="package-content">
+                            <div class="package-header">
+                                <h3>PAKET WISUDA PREMIUM</h3>
+                                <span class="badge-popular">🔥 POPULER</span>
+                                <div class="radio-custom"></div>
+                            </div>
+                            <ul class="package-features">
+                                <li><span class="iconify" data-icon="heroicons:camera"></span> 30 foto edited</li>
+                                <li><span class="iconify" data-icon="heroicons:clock"></span> 2 jam sesi</li>
+                                <li><span class="iconify" data-icon="heroicons:photo"></span> File digital HD + cetak</li>
+                                <li><span class="iconify" data-icon="heroicons:check-badge"></span> NFT Certificate</li>
+                            </ul>
+                            <div class="package-price">Rp 200.000</div>
+                        </div>
+                    </label>
+
+                    <!-- Package 3 -->
+                    <label class="package-card">
+                        <input type="radio" name="package" value="prewedding" data-price="1500000">
+                        <div class="package-content">
+                            <div class="package-header">
+                                <h3>PAKET PREWEDDING</h3>
+                                <div class="radio-custom"></div>
+                            </div>
+                            <ul class="package-features">
+                                <li><span class="iconify" data-icon="heroicons:camera"></span> 100+ foto edited</li>
+                                <li><span class="iconify" data-icon="heroicons:clock"></span> 4 jam sesi outdoor</li>
+                                <li><span class="iconify" data-icon="heroicons:sparkles"></span> Include makeup</li>
+                                <li><span class="iconify" data-icon="heroicons:gift"></span> Album premium</li>
+                            </ul>
+                            <div class="package-price">Rp 1.500.000</div>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Photographer Selection -->
+            <section class="section">
+                <h2 class="section-title">Pilih Fotografer</h2>
+                
+                <div class="photographer-list">
+                    <label class="photographer-card">
+                        <input type="radio" name="photographer" value="ahmad" checked>
+                        <div class="photographer-content">
+                            <div class="photographer-avatar gradient-blue">AR</div>
+                            <div class="photographer-info">
+                                <h4>Ahmad Riski</h4>
+                                <p>Siswa Kelas XII</p>
+                                <div class="rating">
+                                    <span class="iconify star-icon" data-icon="heroicons:star-solid"></span>
+                                    <span>4.9 (45 jobs)</span>
+                                </div>
+                            </div>
+                            <a href="portfolio.html" class="link-portfolio">Lihat Portfolio →</a>
+                        </div>
+                    </label>
+
+                    <label class="photographer-card">
+                        <input type="radio" name="photographer" value="siti">
+                        <div class="photographer-content">
+                            <div class="photographer-avatar gradient-green">SN</div>
+                            <div class="photographer-info">
+                                <h4>Siti Nurhaliza</h4>
+                                <p>Alumni 2023</p>
+                                <div class="rating">
+                                    <span class="iconify star-icon" data-icon="heroicons:star-solid"></span>
+                                    <span>4.8 (67 jobs)</span>
+                                </div>
+                            </div>
+                            <a href="portfolio.html" class="link-portfolio">Lihat Portfolio →</a>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Date & Time -->
+            <section class="section">
+                <h2 class="section-title">📅 Pilih Tanggal & Waktu</h2>
+                
+                <div class="date-scroll">
+                    <label class="date-card">
+                        <input type="radio" name="date" value="2024-01-20" checked>
+                        <div class="date-content">
+                            <div class="date-number">20</div>
+                            <div class="date-day">Sabtu</div>
+                        </div>
+                    </label>
+                    <label class="date-card">
+                        <input type="radio" name="date" value="2024-01-21">
+                        <div class="date-content">
+                            <div class="date-number">21</div>
+                            <div class="date-day">Minggu</div>
+                        </div>
+                    </label>
+                    <label class="date-card">
+                        <input type="radio" name="date" value="2024-01-22">
+                        <div class="date-content">
+                            <div class="date-number">22</div>
+                            <div class="date-day">Senin</div>
+                        </div>
+                    </label>
+                    <label class="date-card">
+                        <input type="radio" name="date" value="2024-01-23">
+                        <div class="date-content">
+                            <div class="date-number">23</div>
+                            <div class="date-day">Selasa</div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="time-selection">
+                    <h3 style="font-size: 14px; margin-bottom: 12px; color: var(--text-secondary);">Waktu Tersedia:</h3>
+                    <div class="time-grid">
+                        <label class="time-slot">
+                            <input type="radio" name="time" value="09:00" checked>
+                            <span>09:00</span>
+                        </label>
+                        <label class="time-slot">
+                            <input type="radio" name="time" value="13:00">
+                            <span>13:00</span>
+                        </label>
+                        <label class="time-slot">
+                            <input type="radio" name="time" value="15:00">
+                            <span>15:00</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notes -->
+            <section class="section">
+                <h2 class="section-title">📝 Catatan Tambahan (Opsional)</h2>
+                <textarea class="input-notes" placeholder="Tulis catatan khusus untuk fotografer..."></textarea>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Sticky Bottom -->
+    <div class="sticky-bottom">
+        <div class="container">
+            <div class="price-summary">
+                <span>Total:</span>
+                <span class="total-price" id="totalPrice">Rp 100.000</span>
+            </div>
+            <a href="payment.html" class="btn btn-primary btn-block">LANJUT KE PEMBAYARAN</a>
+        </div>
+    </div>
+
+    <script>
+        // ===== JAVASCRIPT LENGKAP =====
+        
+        // Update price based on package selection
+        document.querySelectorAll('input[name="package"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const price = this.dataset.price;
+                document.getElementById('totalPrice').textContent = formatRupiah(price);
+            });
+        });
+
+        function formatRupiah(amount) {
+            return 'Rp ' + parseInt(amount).toLocaleString('id-ID');
+        }
+
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#2563EB'
+            };
+            
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 9999;
+                font-size: 14px;
+                font-weight: 500;
+            `;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Smooth animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    section.style.transition = 'all 0.5s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        console.log('✅ Fotografi page loaded successfully!');
+    </script>
+</body>
+</html>

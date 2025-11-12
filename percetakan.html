@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Percetakan - PrintChain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    
+    <style>
+        /* ===== CSS LENGKAP ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --purple: #7C3AED;
+            --bg-primary: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --border: #E5E7EB;
+            --border-dark: #D1D5DB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --radius-s: 8px;
+            --radius-m: 12px;
+            --radius-l: 16px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 var(--space-m);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .menu-btn, .icon-btn {
+            background: none;
+            border: none;
+            padding: var(--space-s);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-s);
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover, .icon-btn:hover {
+            background: var(--bg-primary);
+        }
+
+        .menu-btn .iconify, .icon-btn .iconify {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--space-l) 0;
+        }
+
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-m);
+        }
+
+        /* Product Tabs */
+        .product-tabs {
+            display: flex;
+            gap: var(--space-s);
+            overflow-x: auto;
+            padding-bottom: var(--space-s);
+            margin-bottom: var(--space-l);
+        }
+
+        .product-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: none;
+            border-radius: 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed var(--border-dark);
+            border-radius: var(--radius-m);
+            background: var(--bg-primary);
+            padding: var(--space-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #EFF6FF;
+        }
+
+        .divider {
+            text-align: center;
+            margin: var(--space-l) 0;
+            color: var(--text-light);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 30px);
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: var(--space-m);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+        }
+
+        .input-select {
+            width: 100%;
+            height: 48px;
+            padding: 0 var(--space-m);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-s);
+            font-family: var(--font-body);
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .input-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Counter Input */
+        .counter-input {
+            display: flex;
+            align-items: center;
+            gap: var(--space-m);
+        }
+
+        .counter-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-s);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .counter-btn:hover {
+            background: var(--border);
+        }
+
+        .counter-btn .iconify {
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .counter-input input {
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 600;
+            background: var(--bg-primary);
+            border: none;
+            border-radius: var(--radius-s);
+        }
+
+        /* Info Box */
+        .info-box {
+            display: flex;
+            gap: var(--space-m);
+            background: #FFFBEB;
+            border: 1px solid #FCD34D;
+            border-radius: var(--radius-s);
+            padding: var(--space-m);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-box .iconify {
+            flex-shrink: 0;
+            font-size: 20px;
+            color: var(--accent);
+        }
+
+        /* Addon Cards */
+        .addon-card {
+            display: block;
+            margin-bottom: var(--space-m);
+            cursor: pointer;
+        }
+
+        .addon-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .addon-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-m);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-m);
+            transition: all 0.2s;
+        }
+
+        .addon-card input[type="checkbox"]:checked + .addon-content {
+            background: #EFF6FF;
+            border-color: var(--primary);
+        }
+
+        .addon-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .addon-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .addon-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-m);
+            padding: var(--space-m);
+        }
+
+        .summary-card h3 {
+            font-size: 16px;
+            margin-bottom: var(--space-m);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-s);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .summary-divider {
+            height: 1px;
+            background: var(--border);
+            margin: var(--space-m) 0;
+        }
+
+        .summary-total {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Sticky Bottom */
+        .sticky-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            padding: var(--space-m);
+            z-index: 99;
+        }
+
+        .price-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-m);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .total-price {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Button */
+        .btn {
+            padding: 14px var(--space-l);
+            border-radius: var(--radius-m);
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-s);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:active {
+            background: var(--bg-primary);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+            .sticky-bottom {
+                max-width: 480px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <button class="menu-btn" onclick="history.back()">
+                    <span class="iconify" data-icon="heroicons:arrow-left"></span>
+                </button>
+                <div class="logo">
+                    <span class="logo-text">Order Percetakan</span>
+                </div>
+                <button class="icon-btn">
+                    <span class="iconify" data-icon="heroicons:ellipsis-vertical"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Product Tabs -->
+            <section class="section">
+                <h2 class="section-title">Pilih Produk</h2>
+                <div class="product-tabs">
+                    <button class="tab-btn active" data-tab="undangan">Undangan</button>
+                    <button class="tab-btn" data-tab="banner">Banner</button>
+                    <button class="tab-btn" data-tab="idcard">ID Card</button>
+                    <button class="tab-btn" data-tab="stiker">Stiker</button>
+                    <button class="tab-btn" data-tab="kalender">Kalender</button>
+                </div>
+            </section>
+
+            <!-- Upload Design -->
+            <section class="section">
+                <h2 class="section-title">📤 Upload Design</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <span class="iconify" data-icon="heroicons:arrow-up-tray" style="font-size: 48px; color: var(--text-light);"></span>
+                    <p style="margin: 12px 0 4px; font-weight: 500;">Upload File Design</p>
+                    <p style="font-size: 12px; color: var(--text-secondary);">(PDF, JPG, PNG, AI - Max 10MB)</p>
+                    <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.ai" hidden>
+                </div>
+
+                <div class="divider">atau</div>
+
+                <button class="btn btn-secondary btn-block" onclick="showToast('Template akan segera tersedia!', 'info')">
+                    <span class="iconify" data-icon="heroicons:sparkles"></span>
+                    <div style="text-align: left; flex: 1;">
+                        <div>PILIH DARI TEMPLATE</div>
+                        <div style="font-size: 12px; opacity: 0.7; font-weight: 400;">100+ template siap pakai</div>
+                    </div>
+                </button>
+            </section>
+
+            <!-- Specifications -->
+            <section class="section">
+                <h2 class="section-title">⚙️ Spesifikasi Cetak</h2>
+                
+                <div class="form-group">
+                    <label>Ukuran</label>
+                    <select class="input-select">
+                        <option value="10x15">10×15 cm</option>
+                        <option value="14x20">14×20 cm</option>
+                        <option value="A5">A5 (14.8×21 cm)</option>
+                        <option value="A4">A4 (21×29.7 cm)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Jenis Bahan</label>
+                    <select class="input-select">
+                        <option value="art-paper-260">Art Paper 260gsm</option>
+                        <option value="art-paper-310">Art Paper 310gsm</option>
+                        <option value="ivory">Ivory 230gsm</option>
+                        <option value="jasmine">Jasmine 200gsm</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Finishing</label>
+                    <select class="input-select">
+                        <option value="glossy">Glossy</option>
+                        <option value="doff">Doff</option>
+                        <option value="emboss">Emboss</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Jumlah (pcs)</label>
+                    <div class="counter-input">
+                        <button class="counter-btn" onclick="decreaseQty()">
+                            <span class="iconify" data-icon="heroicons:minus"></span>
+                        </button>
+                        <input type="number" id="qtyInput" value="500" min="1" readonly>
+                        <button class="counter-btn" onclick="increaseQty()">
+                            <span class="iconify" data-icon="heroicons:plus"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <span class="iconify" data-icon="heroicons:light-bulb"></span>
+                    <div>
+                        <strong>Semakin banyak, semakin murah per pcs!</strong><br>
+                        <small>Order 1000+ dapat diskon 15%</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add-ons -->
+            <section class="section">
+                <h2 class="section-title">✅ Add-Ons</h2>
+                
+                <label class="addon-card">
+                    <input type="checkbox" id="blockchainAddon" data-price="10000" checked>
+                    <div class="addon-content">
+                        <div class="addon-info">
+                            <h4>Blockchain Certificate</h4>
+                            <p>Sertifikat digital keaslian</p>
+                        </div>
+                        <div class="addon-price">+Rp 10.000</div>
+                    </div>
+                </label>
+
+                <label class="addon-card">
+                    <input type="checkbox" id="designAddon" data-price="150000">
+                    <div class="addon-content">
+                        <div class="addon-info">
+                            <h4>Custom Design Service</h4>
+                            <p>Tim desainer kami yang buatkan</p>
+                        </div>
+                        <div class="addon-price">+Rp 150.000</div>
+                    </div>
+                </label>
+
+                <label class="addon-card">
+                    <input type="checkbox" id="expressAddon">
+                    <div class="addon-content">
+                        <div class="addon-info">
+                            <h4>Express (2 hari)</h4>
+                            <p>Selesai lebih cepat</p>
+                        </div>
+                        <div class="addon-price">+30%</div>
+                    </div>
+                </label>
+            </section>
+
+            <!-- Price Summary -->
+            <section class="section">
+                <div class="summary-card">
+                    <h3>🧮 Ringkasan Harga</h3>
+                    <div class="summary-row">
+                        <span>Cetak (<span id="summaryQty">500</span> pcs × Rp <span id="summaryPricePerPcs">3.000</span>)</span>
+                        <span id="summarySubtotal">Rp 1.500.000</span>
+                    </div>
+                    <div class="summary-row" id="blockchainSummary">
+                        <span>Blockchain Certificate</span>
+                        <span>Rp 10.000</span>
+                    </div>
+                    <div class="summary-row" id="designSummary" style="display: none;">
+                        <span>Custom Design</span>
+                        <span>Rp 150.000</span>
+                    </div>
+                    <div class="summary-row" id="expressSummary" style="display: none;">
+                        <span>Express Service</span>
+                        <span id="expressPrice">Rp 0</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row summary-total">
+                        <span>Subtotal</span>
+                        <span id="grandTotal">Rp 1.510.000</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Sticky Bottom -->
+    <div class="sticky-bottom">
+        <div class="container">
+            <div class="price-summary">
+                <span>Total:</span>
+                <span class="total-price" id="totalPrice">Rp 1.510.000</span>
+            </div>
+            <a href="payment.html" class="btn btn-primary btn-block">PESAN SEKARANG</a>
+        </div>
+    </div>
+
+    <script>
+        // ===== JAVASCRIPT LENGKAP =====
+        
+        // File Upload
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.background = '#EFF6FF';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--border-dark)';
+            uploadArea.style.background = 'var(--bg-primary)';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--border-dark)';
+            uploadArea.style.background = 'var(--bg-primary)';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+            
+            if (file.size > maxSize) {
+                showToast('File terlalu besar! Max 10MB', 'error');
+                return;
+            }
+            
+            if (!allowedTypes.includes(file.type)) {
+                showToast('Tipe file tidak didukung!', 'error');
+                return;
+            }
+            
+            uploadArea.innerHTML = `
+                <span class="iconify" data-icon="heroicons:check-circle" style="font-size: 48px; color: var(--success);"></span>
+                <p style="margin: 12px 0 4px; font-weight: 500;">${file.name}</p>
+                <p style="font-size: 12px; color: var(--text-secondary);">${formatFileSize(file.size)}</p>
+                <button onclick="removeFile()" style="margin-top: 12px; padding: 6px 12px; background: var(--error); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">
+                    Hapus File
+                </button>
+            `;
+            showToast('File berhasil diupload!', 'success');
+        }
+
+        function removeFile() {
+            uploadArea.innerHTML = `
+                <span class="iconify" data-icon="heroicons:arrow-up-tray" style="font-size: 48px; color: var(--text-light);"></span>
+                <p style="margin: 12px 0 4px; font-weight: 500;">Upload File Design</p>
+                <p style="font-size: 12px; color: var(--text-secondary);">(PDF, JPG, PNG, AI - Max 10MB)</p>
+            `;
+            fileInput.value = '';
+            showToast('File dihapus', 'info');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Quantity Counter
+        function increaseQty() {
+            const input = document.getElementById('qtyInput');
+            input.value = parseInt(input.value) + 100;
+            updatePrice();
+        }
+
+        function decreaseQty() {
+            const input = document.getElementById('qtyInput');
+            if (parseInt(input.value) > 100) {
+                input.value = parseInt(input.value) - 100;
+                updatePrice();
+            }
+        }
+
+        // Update Price
+        function updatePrice() {
+            const qty = parseInt(document.getElementById('qtyInput').value);
+            const pricePerPcs = 3000;
+            const subtotal = qty * pricePerPcs;
+            
+            document.getElementById('summaryQty').textContent = qty;
+            document.getElementById('summarySubtotal').textContent = formatRupiah(subtotal);
+            
+            let total = subtotal;
+            
+            // Blockchain addon
+            const blockchainAddon = document.getElementById('blockchainAddon');
+            if (blockchainAddon.checked) {
+                total += 10000;
+                document.getElementById('blockchainSummary').style.display = 'flex';
+            } else {
+                document.getElementById('blockchainSummary').style.display = 'none';
+            }
+            
+            // Design addon
+            const designAddon = document.getElementById('designAddon');
+            if (designAddon.checked) {
+                total += 150000;
+                document.getElementById('designSummary').style.display = 'flex';
+            } else {
+                document.getElementById('designSummary').style.display = 'none';
+            }
+            
+            // Express addon
+            const expressAddon = document.getElementById('expressAddon');
+            if (expressAddon.checked) {
+                const expressFee = subtotal * 0.3;
+                total += expressFee;
+                document.getElementById('expressPrice').textContent = formatRupiah(expressFee);
+                document.getElementById('expressSummary').style.display = 'flex';
+            } else {
+                document.getElementById('expressSummary').style.display = 'none';
+            }
+            
+            document.getElementById('grandTotal').textContent = formatRupiah(total);
+            document.getElementById('totalPrice').textContent = formatRupiah(total);
+        }
+
+        // Addon listeners
+        document.getElementById('blockchainAddon').addEventListener('change', updatePrice);
+        document.getElementById('designAddon').addEventListener('change', updatePrice);
+        document.getElementById('expressAddon').addEventListener('change', updatePrice);
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                showToast('Produk: ' + this.textContent, 'info');
+            });
+        });
+
+        // Format Rupiah
+        function formatRupiah(amount) {
+            return 'Rp ' + parseInt(amount).toLocaleString('id-ID');
+        }
+
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#2563EB'
+            };
+            
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 9999;
+                font-size: 14px;
+                font-weight: 500;
+                max-width: 90%;
+            `;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Page load animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    section.style.transition = 'all 0.5s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        console.log('✅ Percetakan page loaded successfully!');
+    </script>
+</body>
+</html>
