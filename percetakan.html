@@ -1,3 +1,4 @@
+<!-- percetakan.html - VERSI LENGKAP DENGAN IMAGE PREVIEW -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -168,6 +169,52 @@
         .upload-area:hover {
             border-color: var(--primary);
             background: #EFF6FF;
+        }
+
+        /* Image Preview Styling */
+        .image-preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 16px auto 0;
+            border-radius: var(--radius-m);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #imagePreview {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+            backdrop-filter: blur(2px);
+        }
+
+        .remove-btn:hover {
+            background: var(--error);
         }
 
         .divider {
@@ -492,9 +539,16 @@
                 
                 <div class="upload-area" id="uploadArea">
                     <span class="iconify" data-icon="heroicons:arrow-up-tray" style="font-size: 48px; color: var(--text-light);"></span>
-                    <p style="margin: 12px 0 4px; font-weight: 500;">Upload File Design</p>
-                    <p style="font-size: 12px; color: var(--text-secondary);">(PDF, JPG, PNG, AI - Max 10MB)</p>
-                    <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.ai" hidden>
+                    <p style="margin: 12px 0 4px; font-weight: 500;">Seret & Lepas File atau Klik</p>
+                    <p style="font-size: 12px; color: var(--text-secondary);">(JPG, PNG, maks 5MB)</p>
+                    <input type="file" id="fileInput" accept="image/jpeg, image/png" hidden>
+                </div>
+
+                <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
+                    <img id="imagePreview" src="#" alt="Preview Design Anda">
+                    <button class="remove-btn" onclick="removeFile()">
+                        <span class="iconify" data-icon="heroicons:x-mark"></span> Hapus Gambar
+                    </button>
                 </div>
 
                 <div class="divider">atau</div>
@@ -652,8 +706,16 @@
 
         uploadArea.addEventListener('click', () => fileInput.click());
 
-        uploadArea.addEventListener('dragover', (e) => {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
             e.preventDefault();
+            e.stopPropagation();
+        }
+
+        uploadArea.addEventListener('dragover', () => {
             uploadArea.style.borderColor = 'var(--primary)';
             uploadArea.style.background = '#EFF6FF';
         });
@@ -664,7 +726,6 @@
         });
 
         uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
             uploadArea.style.borderColor = 'var(--border-dark)';
             uploadArea.style.background = 'var(--bg-primary)';
             
@@ -681,38 +742,47 @@
         });
 
         function handleFile(file) {
-            const maxSize = 10 * 1024 * 1024; // 10MB
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
-            
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['image/jpeg', 'image/png'];
+
+            if (!file) return;
+
             if (file.size > maxSize) {
-                showToast('File terlalu besar! Max 10MB', 'error');
+                showToast('File terlalu besar! Maksimal 5MB.', 'error');
                 return;
             }
-            
+
             if (!allowedTypes.includes(file.type)) {
-                showToast('Tipe file tidak didukung!', 'error');
+                showToast('Hanya file JPG dan PNG yang diizinkan.', 'error');
                 return;
             }
-            
-            uploadArea.innerHTML = `
-                <span class="iconify" data-icon="heroicons:check-circle" style="font-size: 48px; color: var(--success);"></span>
-                <p style="margin: 12px 0 4px; font-weight: 500;">${file.name}</p>
-                <p style="font-size: 12px; color: var(--text-secondary);">${formatFileSize(file.size)}</p>
-                <button onclick="removeFile()" style="margin-top: 12px; padding: 6px 12px; background: var(--error); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">
-                    Hapus File
-                </button>
-            `;
-            showToast('File berhasil diupload!', 'success');
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const previewContainer = document.getElementById('imagePreviewContainer');
+                const imagePreview = document.getElementById('imagePreview');
+                
+                imagePreview.src = e.target.result;
+                previewContainer.style.display = 'block';
+                
+                document.getElementById('uploadArea').style.display = 'none';
+
+                showToast('Gambar berhasil di-preview!', 'success');
+            };
+
+            reader.readAsDataURL(file);
         }
 
         function removeFile() {
-            uploadArea.innerHTML = `
-                <span class="iconify" data-icon="heroicons:arrow-up-tray" style="font-size: 48px; color: var(--text-light);"></span>
-                <p style="margin: 12px 0 4px; font-weight: 500;">Upload File Design</p>
-                <p style="font-size: 12px; color: var(--text-secondary);">(PDF, JPG, PNG, AI - Max 10MB)</p>
-            `;
             fileInput.value = '';
-            showToast('File dihapus', 'info');
+
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+            document.getElementById('imagePreview').src = '#';
+
+            document.getElementById('uploadArea').style.display = 'block';
+            
+            showToast('Gambar dihapus.', 'info');
         }
 
         function formatFileSize(bytes) {
@@ -749,7 +819,6 @@
             
             let total = subtotal;
             
-            // Blockchain addon
             const blockchainAddon = document.getElementById('blockchainAddon');
             if (blockchainAddon.checked) {
                 total += 10000;
@@ -758,7 +827,6 @@
                 document.getElementById('blockchainSummary').style.display = 'none';
             }
             
-            // Design addon
             const designAddon = document.getElementById('designAddon');
             if (designAddon.checked) {
                 total += 150000;
@@ -767,7 +835,6 @@
                 document.getElementById('designSummary').style.display = 'none';
             }
             
-            // Express addon
             const expressAddon = document.getElementById('expressAddon');
             if (expressAddon.checked) {
                 const expressFee = subtotal * 0.3;
@@ -782,10 +849,9 @@
             document.getElementById('totalPrice').textContent = formatRupiah(total);
         }
 
-        // Addon listeners
-        document.getElementById('blockchainAddon').addEventListener('change', updatePrice);
-        document.getElementById('designAddon').addEventListener('change', updatePrice);
-        document.getElementById('expressAddon').addEventListener('change', updatePrice);
+        ['blockchainAddon', 'designAddon', 'expressAddon'].forEach(id => {
+            document.getElementById(id).addEventListener('change', updatePrice);
+        });
 
         // Tab switching
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -814,7 +880,8 @@
                 info: '#2563EB'
             };
             
-            toast.textContent = message;
+            toast.innerHTML = `<span>${message}</span>`;
+            
             toast.style.cssText = `
                 position: fixed;
                 bottom: 120px;
@@ -828,28 +895,33 @@
                 z-index: 9999;
                 font-size: 14px;
                 font-weight: 500;
+                animation: toastSlideUp 0.3s ease;
                 max-width: 90%;
             `;
             
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            setTimeout(() => {
+                toast.style.animation = 'toastSlideDown 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        // Page load animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach((section, index) => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    section.style.transition = 'all 0.5s ease';
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
+        const toastStyles = document.createElement('style');
+        toastStyles.textContent = `
+            @keyframes toastSlideUp {
+                from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            @keyframes toastSlideDown {
+                from { transform: translateX(-50%) translateY(0); opacity: 1; }
+                to { transform: translateX(-50%) translateY(20px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(toastStyles);
 
-        console.log('✅ Percetakan page loaded successfully!');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Percetakan page loaded successfully!');
+        });
     </script>
 </body>
 </html>
