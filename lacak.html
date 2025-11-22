@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lacak Pesanan - SMK Creative Hub</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f4f7f6; }
+        header { background-color: #0056b3; color: white; padding: 20px; text-align: center; }
+        header h1 { margin: 0; }
+        .container { padding: 20px; max-width: 500px; margin: auto; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        .btn-lacak { display: block; width: 100%; padding: 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .status-result { margin-top: 30px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none; }
+        nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+        nav a { padding: 15px; text-align: center; text-decoration: none; color: #666; font-size: 12px; }
+        nav a.active { color: #007bff; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Lacak Pesanan Anda</h1>
+    </header>
+
+    <div class="container">
+        <p>Masukkan Nomor Pesanan atau Nomor WhatsApp Anda untuk melihat status pesanan.</p>
+        <div class="form-group" style="margin-top: 20px;">
+            <input type="text" id="trackingInput" placeholder="Nomor Pesanan / No. WhatsApp">
+        </div>
+        <button class="btn-lacak" onclick="lacakPesanan()">Lacak Sekarang</button>
+
+        <div id="statusResult" class="status-result">
+            <h3 id="statusTitle"></h3>
+            <p id="statusDesc"></p>
+        </div>
+    </div>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="lacak.html" class="active">Lacak</a>
+    </nav>
+
+    <script>
+        function lacakPesanan() {
+            const input = document.getElementById('trackingInput').value;
+            const resultDiv = document.getElementById('statusResult');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusDesc = document.getElementById('statusDesc');
+
+            if (!input) {
+                alert('Harap masukkan nomor pesanan atau No. WhatsApp!');
+                return;
+            }
+
+            // Simulasi data status pesanan
+            const statuses = [
+                { title: 'Dalam Pengerjaan', desc: 'Pesanan Anda sedang dikerjakan oleh tim kami. Estimasi selesai dalam 2-3 hari kerja.' },
+                { title: 'Pengecekan Kualitas', desc: 'Produk Anda sedang dalam tahap pengecekan kualitas untuk memastikan hasil terbaik.' },
+                { title: 'Siap Diambil!', desc: 'Pesanan Anda sudah selesai dan siap untuk diambil di Unit Produksi SMKN 6.' },
+                { title: 'Pesanan Selesai', desc: 'Terima kasih! Pesanan Anda telah selesai dan diterima.' }
+            ];
+
+            // Tampilkan status acak untuk demo
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            statusTitle.textContent = `Status: ${randomStatus.title}`;
+            statusDesc.textContent = randomStatus.desc;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

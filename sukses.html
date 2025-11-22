@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesanan Diterima - SMK Creative Hub</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f4f7f6; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+        .container { padding: 20px; max-width: 500px; }
+        .icon-sukses { font-size: 80px; color: #28a745; }
+        h1 { font-size: 28px; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; }
+        .btn { display: inline-block; padding: 12px 25px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="icon-sukses">✓</div>
+        <h1>Pesanan Berhasil Dikirim!</h1>
+        <p>
+            Terima kasih, <strong id="namaPemesan"></strong>! <br>
+            Tim kami akan segera menghubungi Anda melalui WhatsApp untuk konfirmasi detail dan total pembayaran.
+        </p>
+        <div id="nomorPesanan" style="font-size: 14px; margin-bottom: 30px;"></div>
+        <a href="index.html" class="btn">Kembali ke Halaman Utama</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const nama = params.get('nama') || 'Pelanggan';
+            const nomorPesanan = `SMKCH-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            document.getElementById('namaPemesan').textContent = nama;
+            document.getElementById('nomorPesanan').innerHTML = `Gunakan nomor pesanan ini untuk melacak: <strong>${nomorPesanan}</strong>`;
+        });
+    </script>
+</body>
+</html>

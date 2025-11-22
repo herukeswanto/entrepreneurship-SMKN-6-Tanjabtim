@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Jasa - SMK Creative Hub</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f4f7f6; color: #333; padding-bottom: 80px; }
+        header { background-color: #0056b3; color: white; padding: 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 24px; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: 'Poppins', sans-serif;
+        }
+        .btn-submit { display: block; width: 100%; padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #007bff; text-decoration: none; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 id="pageTitle">Pesan Jasa</h1>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Kembali ke Home</a>
+
+        <!-- Form Fotografi -->
+        <form id="formFotografi" style="display: none;" action="sukses.html" method="get">
+            <input type="hidden" name="jasa" value="Fotografi">
+            <div class="form-group">
+                <label for="paketFoto">Pilih Paket</label>
+                <select id="paketFoto" name="paket" required>
+                    <option value="Paket Wisuda Basic - Rp 100.000">Paket Wisuda Basic - Rp 100.000</option>
+                    <option value="Paket Wisuda Premium - Rp 200.000">Paket Wisuda Premium - Rp 200.000</option>
+                    <option value="Paket Prewedding - Rp 1.500.000">Paket Prewedding - Rp 1.500.000</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tanggal">Tanggal Pelaksanaan</label>
+                <input type="date" id="tanggal" name="tanggal" required>
+            </div>
+            <div class="form-group">
+                <label for="nama">Nama Pemesan</label>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="whatsapp">Nomor WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="cth: 081234567890" required>
+            </div>
+            <button type="submit" class="btn-submit">Booking Sekarang</button>
+        </form>
+
+        <!-- Form Percetakan -->
+        <form id="formPercetakan" style="display: none;" action="sukses.html" method="get">
+            <input type="hidden" name="jasa" value="Percetakan">
+            <div class="form-group">
+                <label for="produkCetak">Produk</label>
+                <select id="produkCetak" name="produk" required>
+                    <option value="Undangan">Undangan</option>
+                    <option value="Banner/Spanduk">Banner/Spanduk</option>
+                    <option value="Stiker">Stiker</option>
+                    <option value="ID Card">ID Card</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="jumlah">Jumlah</label>
+                <input type="number" id="jumlah" name="jumlah" placeholder="cth: 500" required>
+            </div>
+            <div class="form-group">
+                <label for="uploadDesain">Upload Desain (Opsional)</label>
+                <input type="file" id="uploadDesain" name="desain">
+            </div>
+             <div class="form-group">
+                <label for="namaCetak">Nama Pemesan</label>
+                <input type="text" id="namaCetak" name="nama" placeholder="Masukkan nama Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="whatsappCetak">Nomor WhatsApp</label>
+                <input type="tel" id="whatsappCetak" name="whatsapp" placeholder="cth: 081234567890" required>
+            </div>
+            <div class="form-group">
+                <label for="catatan">Catatan Tambahan</label>
+                <textarea id="catatan" name="catatan" rows="3" placeholder="cth: Ukuran banner 2x1 meter, bahan flexi"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Kirim Pesanan</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const service = params.get('service');
+            const pageTitle = document.getElementById('pageTitle');
+            const formFotografi = document.getElementById('formFotografi');
+            const formPercetakan = document.getElementById('formPercetakan');
+
+            if (service === 'fotografi') {
+                pageTitle.textContent = 'Booking Jasa Fotografi';
+                formFotografi.style.display = 'block';
+            } else if (service === 'percetakan') {
+                pageTitle.textContent = 'Order Jasa Percetakan';
+                formPercetakan.style.display = 'block';
+            } else {
+                pageTitle.textContent = 'Pilih Jasa';
+                document.querySelector('.container').innerHTML = '<p>Silakan pilih jasa dari halaman utama.</p><a href="index.html">Kembali</a>';
+            }
+        });
+    </script>
+</body>
+</html>
